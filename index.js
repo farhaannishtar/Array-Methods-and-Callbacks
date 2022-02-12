@@ -34,7 +34,7 @@ function getFinals(fifaData) {
    })
    return finalStages;
 }
-console.log(getFinals(fifaData));
+// console.log(getFinals(fifaData));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -91,6 +91,12 @@ function getWinnersByYear(fifaData, getFinals, getYears, getWinners) {
     /* code here */
     const finalsMatches = getFinals(fifaData);
     const years = getYears(fifaData, getFinals);
+    const winners = getWinners(fifaData, getFinals);
+    const message = [];
+    for (let i = 0; i <= winners.length; i++) {
+      message.push(`In ${years[i]}, ${winners[i]} won the world cup!`)
+    }
+    return message;
 }
 
 
@@ -105,11 +111,21 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals(finalResults) {
    /* code here */
+   console.log('getFinals is a function: ', getFinals);
+   const totalGoals = finalResults.reduce((total, match) => {
+     const homeScore = match["Home Team Goals"];
+     const awayScore = match["Away Team Goals"];
+     total += homeScore;
+     total += awayScore;
+     return total;
+   }, 0) 
+   const average = totalGoals / finalResults.length;
+   return average.toFixed(2);
 }
 
-
+console.log('Average goals for the Finals matches are: ', getAverageGoals(getFinals(fifaData)));
 
 
 /// 🥅 STRETCH 🥅 ///
@@ -153,7 +169,7 @@ function badDefense(/* code here */) {
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo(){
-    console.log('its working');
+    // console.log('its working');
     return 'bar';
 }
 foo();
